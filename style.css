@@ -1,0 +1,163 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #612121, #5c2a2a);
+    --primary-text: #e8e8e8;
+    --accent: #ff6f61;
+    --card-bg: #2d2d3d;
+    --card-hover: #3a3a4d;
+
+    /* New: base wave color in HSL so we can tweak lightness/saturation */
+    --wave-base: 0, 75.4%, 43%; /* reddish by default (hue 0°) */
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--primary-text);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+    line-height: 1.6;
+    position: relative;
+    overflow-x: hidden;
+}
+
+.title, h2, p, .cards, footer {
+    position: relative;
+    z-index: 2;
+}
+
+.title {
+    font-size: 3.5rem;
+    text-align: center;
+    margin: 0.5rem 0 1rem;
+    color: var(--accent);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+h2 {
+    font-size: 2rem;
+    text-align: center;
+    margin: 3.5rem 0 0rem;
+    color: var(--accent);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+p {
+    max-width: 600px;
+    margin: 0 auto 1rem;
+    font-size: 1.1rem;
+    text-align: center;
+    color: var(--primary-text);
+}
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 900px;
+    margin-top: 2rem;
+}
+
+.card {
+    background: var(--card-bg);
+    padding: 1.5rem;
+    border-radius: 8px;
+    text-align: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+}
+
+.card:hover {
+    background: var(--card-hover);
+    transform: translateY(-5px);
+}
+
+.lang-name {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin-bottom: 0.5rem;
+}
+
+.lang-level {
+    font-size: 1rem;
+    color: var(--primary-text);
+}
+
+footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #a0a0a0;
+    text-align: center;
+}
+
+a {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* ========================= */
+/* Animated Sine-like Waves  */
+/* ========================= */
+.wave-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.wave-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Ripple waves starting from top-left */
+    background: repeating-radial-gradient(
+        circle at 0 0, /* << origin in left-upper corner */
+        hsla(var(--wave-base), 0.1) 0px,
+        hsla(var(--wave-base), 0.1) 5px,
+        transparent 20px,
+        transparent 40px
+    );
+
+    background-size: 150% 150%;
+    animation: diagonalShift 25s linear infinite;
+    opacity: 0.25;
+
+    /* Performance optimizations */
+    will-change: background-position;
+    contain: paint;
+}
+
+/* Variations across layers */
+.wave-layer:nth-child(odd) {
+    animation-duration: 35s;
+    opacity: 0.2;
+}
+.wave-layer:nth-child(3n) {
+    animation-duration: 18s;
+    opacity: 0.15;
+}
+.wave-layer:nth-child(5n) {
+    filter: brightness(1.1);
+}
+
+/* Animate background movement */
+@keyframes diagonalShift {
+    from { background-position: 0 0; }
+    to   { background-position: -300px -300px; }
+}
