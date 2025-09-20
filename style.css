@@ -145,11 +145,11 @@ a:hover {
 
 /* Variations across layers */
 .wave-layer:nth-child(odd) {
-    animation-duration: 35s;
+    animation-duration: 24.2s;
     opacity: 0.2;
 }
 .wave-layer:nth-child(3n) {
-    animation-duration: 18s;
+    animation-duration: 13.5s;
     opacity: 0.15;
 }
 .wave-layer:nth-child(5n) {
